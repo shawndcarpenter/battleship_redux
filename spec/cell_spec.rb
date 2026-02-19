@@ -37,4 +37,21 @@ RSpec.describe Cell do
       expect(@cell.empty?).to be false
     end
   end
+
+  describe '#fire_upon' do
+    before(:each) do
+      @cell = Cell.new("B4")
+      @cruiser = Ship.new("Cruiser", 3)
+      @cell.place_ship(@cruiser)
+    end
+
+    it 'knows when it has been fired upon' do
+      expect(@cell.fired_upon?).to be false
+
+      @cell.fire_upon
+
+      expect(@cell.ship.health).to be 2
+      expect(@cell.fired_upon?).to be true
+    end
+  end
 end
