@@ -58,7 +58,7 @@ RSpec.describe Cell do
   describe '#render' do
     before(:each) do
       @cell_1 = Cell.new("B4")
-      @cell_1 = Cell.new("C3")
+      @cell_2 = Cell.new("C3")
       @cruiser = Ship.new("Cruiser", 3)
       @cell_2.place_ship(@cruiser)
     end
