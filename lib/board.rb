@@ -61,4 +61,28 @@ class Board
       end
     end
   end
+
+  def render(show_ship = nil)
+    string = "  "
+    letters = ["A", "B", "C", "D"]
+    numbers = [1, 2, 3, 4]
+    i = 1
+
+    numbers.each do |num|
+      string << num.to_s + " "
+    end
+
+    letters.each do |letter|
+      string << "\n" + letter + " "
+      until i > 4
+        string << @cells["#{letter + i.to_s}"].render(show_ship) + " "
+        i += 1
+      end
+
+      i = 1
+    end
+    string << "\n"
+
+    string
+  end
 end
