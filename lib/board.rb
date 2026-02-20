@@ -31,8 +31,10 @@ class Board
     end
 
     (ship.length == coordinates.length) && 
-    (ord_letters.uniq.length == 1 && self.consecutive?(numbers) || 
-    numbers.uniq.length == 1 && self.consecutive?(ord_letters))
+    (ord_letters.uniq.length == 1 && 
+      self.consecutive?(numbers) || 
+      numbers.uniq.length == 1 &&
+      self.consecutive?(ord_letters))
   end
 
   def consecutive?(numbers)
@@ -46,5 +48,13 @@ class Board
       end
     end
     true
+  end
+
+  def place(ship, coords)
+    if self.valid_placement?(ship, coords)
+      coords.each do |coord|
+        @cells["#{coord}"].place_ship(ship)
+      end
+    end
   end
 end
