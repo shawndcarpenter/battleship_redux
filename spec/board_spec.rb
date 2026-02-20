@@ -94,13 +94,35 @@ RSpec.describe Board do
   end
   
   describe '#rendering the board' do
+    before(:each) do
+      @board = Board.new
+      @cruiser = Ship.new("Cruiser", 3)
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+    end
+
     it 'renders board as a string' do
-      board = Board.new
-      cruiser = Ship.new("Cruiser", 3)
-      board.place(cruiser, ["A1", "A2", "A3"])
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+    end
+
+    it 'shows fired upon cells' do
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
       
-      expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
-      expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      @board.cells["B4"].fire_upon
+
+      expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . M \nC . . . . \nD . . . . \n")
+      
+      @board.cells["A1"].fire_upon
+
+      expect(@board.render).to eq("  1 2 3 4 \nA H . . . \nB . . . M \nC . . . . \nD . . . . \n")
+      
+      @board.cells["A2"].fire_upon
+
+      expect(@board.render(true)).to eq("  1 2 3 4 \nA H H S . \nB . . . M \nC . . . . \nD . . . . \n")
+      
+      @board.cells["A3"].fire_upon
+
+      expect(@board.render).to eq("  1 2 3 4 \nA X X X . \nB . . . M \nC . . . . \nD . . . . \n")
     end
   end
 end
