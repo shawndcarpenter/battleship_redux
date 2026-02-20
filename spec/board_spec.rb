@@ -20,4 +20,18 @@ RSpec.describe Board do
     end
 
   end
+
+  describe "#valid_coordinate?" do
+    before(:each) do
+      @board = Board.new
+    end
+
+    it "can tell if a coordinate is on a board or not" do
+      expect(@board.valid_coordinate?("A1")).to be true
+      expect(@board.valid_coordinate?("D4")).to be true
+      expect(@board.valid_coordinate?("A5")).to be false
+      expect(@board.valid_coordinate?("E1")).to be false 
+      expect(@board.valid_coordinate?("A22")).to be false
+    end
+  end
 end
