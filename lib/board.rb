@@ -26,6 +26,10 @@ class Board
     ord_letters = []
     numbers = []
     coordinates.each do |coordinate|
+      if !@cells["#{coordinate}"].empty?
+        return false
+      end
+
       ord_letters <<coordinate[0].ord
       numbers <<coordinate[1].to_i
     end
